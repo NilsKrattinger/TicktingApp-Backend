@@ -34,10 +34,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="TicketingLib\TicketingLib.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
         <Protobuf Include=".\Protos\concert.proto" GrpcServices="Client">
             <Link>Protos\concert.proto</Link>
         </Protobuf>

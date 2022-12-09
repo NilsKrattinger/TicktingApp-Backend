@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingApp", "TicketingApp\TicketingApp.csproj", "{A8F376C7-EA71-47FA-B1E7-47B4FADBA26C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingLib", "TicketingLib\TicketingLib.csproj", "{4C71ED5B-4BAC-4A57-96F9-55AA66F986A8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingAppBackEnd", "TicketingAppBackEnd\TicketingAppBackEnd.csproj", "{9A01D026-3AA2-444A-AE7E-69E82F04A610}"
 EndProject
 Global
@@ -16,10 +14,6 @@ Global
 		{A8F376C7-EA71-47FA-B1E7-47B4FADBA26C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8F376C7-EA71-47FA-B1E7-47B4FADBA26C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8F376C7-EA71-47FA-B1E7-47B4FADBA26C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C71ED5B-4BAC-4A57-96F9-55AA66F986A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C71ED5B-4BAC-4A57-96F9-55AA66F986A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C71ED5B-4BAC-4A57-96F9-55AA66F986A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C71ED5B-4BAC-4A57-96F9-55AA66F986A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9A01D026-3AA2-444A-AE7E-69E82F04A610}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9A01D026-3AA2-444A-AE7E-69E82F04A610}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A01D026-3AA2-444A-AE7E-69E82F04A610}.Release|Any CPU.ActiveCfg = Release|Any CPU

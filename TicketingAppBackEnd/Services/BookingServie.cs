@@ -15,13 +15,13 @@ namespace TicketingAppBackEnd.Services
 
         public async Task<CustomOperationReply> AddReservation(AddBookingRequest request, ServerCallContext context)
         {
-            var reservation = new TicketingLib.Model.Booking()
+            var reservation = new Booking()
             {
                 Id = request.Id, 
                 Price = request.Price, 
-                Date = request.Date.ToDateTime(), 
+                Date = request.Date,
                 Email = request.Email, 
-                RIB = request.RIB, 
+                Payment = request.Payment,
                 ConcertId = request.ConcertId
             };
             await _bookingRepository.AddAsync(reservation);

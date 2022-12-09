@@ -31,8 +31,4 @@
       </Protobuf>
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\TicketingLib\TicketingLib.csproj" />
-    </ItemGroup>
-
 </Project>

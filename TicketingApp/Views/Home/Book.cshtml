@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Book";
+}
+@using TicketingApp.Models
+@model TicketingApp.Protos.Booking
+
+<h1>Réservation concert @Modusing TicketingApp.Models;
+el.Concert.Artist</h1>
+<form method="post" asp-action="Booking">
+    <input type="hidden" asp-for="Concert.Id" />
+    <span>Price : @Model.Concert.Price</span>
+    <br />
+    <div class="form-group">
+        <label for="emailInput">Email</label>
+        <input asp-for="Email" type="text" class="form-control" id="emailInput" placeholder="Enter your email">
+    </div>
+    <div class="form-group">
+        <label for="ribInput">Payment</label>
+        <input asp-for="Payment" type="text" class="form-control" id="ribInput" placeholder="Enter your Payment mean">
+    </div>
+    <button type="submit" class="btn btn-primary">Send</button>
+</form>

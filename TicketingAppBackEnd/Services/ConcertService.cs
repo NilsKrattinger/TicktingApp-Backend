@@ -16,7 +16,7 @@ namespace TicketingAppBackEnd.Services
 
         public async override Task<ConcertReply> AddConcert(ConcertRequest request, ServerCallContext context)
         {
-            var concert = new TicketingLib.Model.Concert
+            var concert = new Concert
             {
                 Id = request.Id,
                 Artist = request.Artist, 
@@ -43,7 +43,7 @@ namespace TicketingAppBackEnd.Services
 
         public async override Task<ConcertReply> UpdateConcert(ConcertRequest request, ServerCallContext context)
         {
-            var concert = new TicketingLib.Model.Concert
+            var concert = new Concert
             {
                 Id = request.Id,
                 Artist = request.Artist,

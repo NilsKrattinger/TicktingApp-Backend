@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TicketingLib.Model;
+using TicketingAppBackEnd.Protos;
 
 namespace TicketingAppBackEnd.Models
 {

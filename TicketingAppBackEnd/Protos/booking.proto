@@ -20,7 +20,7 @@ message Booking {
   int32 ConcertId =2;
   int32 Price = 3;
   string Email = 4;
-  string PaymentType =5;
+  string Payment =5;
   google.protobuf.Timestamp Date = 6;
 
 }
@@ -30,7 +30,7 @@ message AddBookingRequest {
   int32 Price = 2;
   google.protobuf.Timestamp Date = 3;
   string Email = 4;
-  string RIB =5;
+  string Payment =5;
   int32 ConcertId =6;
 }
 

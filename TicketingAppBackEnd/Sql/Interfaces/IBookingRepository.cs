@@ -1,4 +1,5 @@
-﻿using TicketingLib.Model;
+﻿
+using TicketingAppBackEnd.Protos;
 
 namespace TicketingAppBackEnd.Sql.Interfaces
 {

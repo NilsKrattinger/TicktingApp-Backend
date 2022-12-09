@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<TicketingApp.Protos.Concert>
+
+<div class="text-center">
+    <h1 class="display-4">Site de billeterie</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Artiste</th>
+                <th scope="col">Price</th>
+                <th scope="col">Place</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var concert in Model)
+            {
+                <tr>
+                    <th scope="row">@concert.Id</th>
+                    <td>@concert.Artist</td>
+                    <td>@concert.Price €</td>
+                    <td>@concert.Place</td>
+                    <td>
+                        <span class="btn rounded btn-info m-3"><a class="text-white" asp-area="" asp-controller="Home" asp-action="Book" >Réserver une place</a></span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
