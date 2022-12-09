@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="TicketingLib\**" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <EmbeddedResource Remove="TicketingLib\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="TicketingLib\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="TicketingLib\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="TicketingLib\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="TicketingLib\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="TicketingLib\obj\TicketingLib.csproj.nuget.dgspec.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="TicketingLib\TicketingLib.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Protobuf Include=".\Protos\concert.proto" GrpcServices="Client">
+            <Link>Protos\concert.proto</Link>
+        </Protobuf>
+        <Protobuf Include=".\Protos\booking.proto" GrpcServices="Client">
+            <Link>Protos\booking.proto</Link>
+        </Protobuf>
+    </ItemGroup>
+
+</Project>

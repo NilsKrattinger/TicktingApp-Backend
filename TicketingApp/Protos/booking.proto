@@ -1,0 +1,44 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+
+option csharp_namespace = "TicketingApp.Protos";
+
+service BookingService {
+  rpc GetAllBookings(google.protobuf.Empty) returns (GetAllBookingReply);
+  rpc AddBooking(AddBookingRequest) returns (CustomOperationReply);
+
+}
+
+message BookingId {
+  int32 Id = 1;
+}
+
+message Booking {
+  int32 Id = 1;
+  int32 ConcertId =2;
+  int32 Price = 3;
+  string Email = 4;
+  string PaymentType =5;
+  google.protobuf.Timestamp Date = 6;
+
+}
+
+message AddBookingRequest {
+  int32 Id = 1;
+  int32 Price = 2;
+  google.protobuf.Timestamp Date = 3;
+  string Email = 4;
+  string RIB =5;
+  int32 ConcertId =6;
+}
+
+message GetAllBookingReply {
+  repeated Booking booking = 1;
+}
+
+message CustomOperationReply{
+  string code = 1;
+}
+
