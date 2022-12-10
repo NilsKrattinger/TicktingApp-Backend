@@ -29,7 +29,8 @@ namespace TicketingAppBackEnd.Sql
 
         public List<Concert> GetAll()
         {
-            return _context.Concerts.ToList();
+            var res =  _context.Concerts.ToList();
+            return res;
         }
 
         public Concert GetById(int concertId)

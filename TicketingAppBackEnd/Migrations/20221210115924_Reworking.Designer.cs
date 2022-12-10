@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketingAppBackEnd.Models;
 
@@ -10,9 +11,11 @@ using TicketingAppBackEnd.Models;
 namespace TicketingAppBackEnd.Migrations
 {
     [DbContext(typeof(DevContext))]
-    partial class DevContextModelSnapshot : ModelSnapshot
+    [Migration("20221210115924_Reworking")]
+    partial class Reworking
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
@@ -26,7 +29,7 @@ namespace TicketingAppBackEnd.Migrations
                     b.Property<int>("ConcertId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("DateUTC")
+                    b.Property<DateTime?>("Date")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")

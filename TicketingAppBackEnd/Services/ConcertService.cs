@@ -1,8 +1,7 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using TicketingAppBackEnd.Protos;
 using TicketingAppBackEnd.Sql.Interfaces;
-
+using TicketingAppBackEnd.Protos;
 namespace TicketingAppBackEnd.Services
 {
     public class ConcertService : TicketingAppBackEnd.Protos.ConcertService.ConcertServiceBase
@@ -14,7 +13,7 @@ namespace TicketingAppBackEnd.Services
             _concertRepository = concertRepository;
         }
 
-        public async override Task<ConcertReply> AddConcert(ConcertRequest request, ServerCallContext context)
+        public override async Task<CustomOperationReply> AddConcert(Concert request, ServerCallContext context)
         {
             var concert = new Concert
             {
@@ -25,23 +24,25 @@ namespace TicketingAppBackEnd.Services
             };
             await _concertRepository.AddAsync(concert);
 
-            return new ConcertReply
+            return new CustomOperationReply()
             {
-                Id = concert.Id
+                Code = 0,
+                Message = concert.Id.ToString()
             };
         }
 
-        public async override Task<ConcertReply> DeleteConcert(DeleteConcertRequest request, ServerCallContext context)
+        public async Task<CustomOperationReply> DeleteConcert(Concert request, ServerCallContext context)
         {
             await _concertRepository.DeleteAsync(request.Id);
 
-            return new ConcertReply
+            return new CustomOperationReply()
             {
-                Id = request.Id
+                Code = 0,
+                Message = ""
             };
         }
 
-        public async override Task<ConcertReply> UpdateConcert(ConcertRequest request, ServerCallContext context)
+        public override async Task<CustomOperationReply> UpdateConcert(Concert request, ServerCallContext context)
         {
             var concert = new Concert
             {
@@ -52,25 +53,28 @@ namespace TicketingAppBackEnd.Services
             };
             await _concertRepository.UpdateAsync(concert);
 
-            return new ConcertReply
+            return new CustomOperationReply()
             {
-                Id = concert.Id
+                Code = 0,
             };
         }
 
         public override Task<GetAllConcertsReply> GetAllConcerts(Empty request, ServerCallContext context)
         {
-            var concerts = (_concertRepository.GetAll())
-               .Select(x => new TicketingAppBackEnd.Protos.Concert
-               {
-                   Id = x.Id,
-                   Artist = x.Artist,
-                   Price = x.Price,
-                   Place = x.Place
-               });
+            var concerts = _concertRepository.GetAll();
+            /* .Select(x => new TicketingAppBackEnd.Protos.Concert
+          {
+               Id = x.Id,
+               Artist = x.Artist,
+               Price = x.Price,
+               Place = x.Place
+           });*/
 
+
+            //var result = new GetAllConcertsReply();
             var result = new GetAllConcertsReply();
             result.Concerts.AddRange(concerts);
+
 
             return Task.FromResult(result);
         }

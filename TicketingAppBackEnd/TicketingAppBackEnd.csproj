@@ -8,27 +8,30 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
+        <PackageReference Include="Grpc.AspNetCore" Version="2.49.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.0" />
-        <PackageReference Include="Microsoft.OpenApi" Version="1.4.5" />
-        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.4.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.4.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.4.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.0"/>
+        <PackageReference Include="Microsoft.OpenApi" Version="1.4.5"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.4.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.4.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.4.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Protobuf Include="Protos\booking.proto">
-        <Generator>MSBuild:Compile</Generator>
-      </Protobuf>
-      <Protobuf Include="Protos\concert.proto">
-        <Generator>MSBuild:Compile</Generator>
-      </Protobuf>
+        <Protobuf Include=".\Protos\concert.proto" GrpcServices="Server" ProtoRoot="./Protos\">
+            <Link>Protos\concert.proto</Link>
+        </Protobuf>
+        <Protobuf Include=".\Protos\booking.proto" GrpcServices="Server" ProtoRoot="./Protos\">
+            <Link>Protos\booking.proto</Link>
+        </Protobuf>
+        <Protobuf Include=".\Protos\common.proto" GrpcServices="Server" ProtoRoot="./Protos\">
+            <Link>Protos\common.proto</Link>
+        </Protobuf>
     </ItemGroup>
 
 </Project>

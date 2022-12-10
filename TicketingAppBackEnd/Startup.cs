@@ -19,10 +19,14 @@ namespace TicketingAppBackEnd
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            AppContext.SetSwitch(
+                "System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
+
             services.AddControllers();
 
             services.AddDbContext<DevContext>(x => x.UseSqlite("Data Source=database.db"));
-             services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<IConcertRepository, ConcertRepository>();
 
             services.AddSwaggerGen(c =>

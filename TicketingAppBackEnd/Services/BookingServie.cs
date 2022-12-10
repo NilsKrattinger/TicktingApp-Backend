@@ -1,4 +1,5 @@
-﻿using Grpc.Core;
+﻿using Google.Protobuf.WellKnownTypes;
+using Grpc.Core;
 using TicketingAppBackEnd.Protos;
 using TicketingAppBackEnd.Sql.Interfaces;
 
@@ -13,23 +14,24 @@ namespace TicketingAppBackEnd.Services
             _bookingRepository = bookingRepository;
         }
 
-        public async Task<CustomOperationReply> AddReservation(AddBookingRequest request, ServerCallContext context)
+        public override async Task<CustomOperationReply> AddBooking(Booking request, ServerCallContext context)
         {
-            var reservation = new Booking()
-            {
-                Id = request.Id, 
-                Price = request.Price, 
-                Date = request.Date,
-                Email = request.Email, 
-                Payment = request.Payment,
-                ConcertId = request.ConcertId
-            };
-            await _bookingRepository.AddAsync(reservation);
+
+            request.DateUTC = Timestamp.FromDateTime(DateTime.Now.ToUniversalTime());
+            await _bookingRepository.AddAsync(request);
 
             return new CustomOperationReply
             {
-                Code = "OK + reservation.Id"
+                Code = 0
             };
+        }
+
+        public override Task<GetAllBookingReply> GetAllBookings(Empty request, ServerCallContext context)
+        {
+            var bookings = _bookingRepository.GetAll();
+            var reply = new GetAllBookingReply();
+            reply.Booking.AddRange(bookings);
+            return Task.FromResult(reply);
         }
     }
 }
