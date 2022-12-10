@@ -8,7 +8,7 @@ service ConcertService {
   rpc AddConcert(Concert) returns (CustomOperationReply);
   rpc DeleteConcert(ConcertId) returns (CustomOperationReply);
   rpc UpdateConcert(Concert) returns (CustomOperationReply);
-  rpc GetConcert(ConcertId) returns (Concert);
+  rpc GetById(ConcertId) returns (ConcertReply);
   rpc GetAllConcerts(google.protobuf.Empty) returns (GetAllConcertsReply);
 }
 
@@ -21,6 +21,10 @@ message Concert {
 
 message ConcertId {
   int32 id =1;
+}
+
+message ConcertReply{
+  optional Concert concert = 1;
 }
 
 message GetAllConcertsReply {

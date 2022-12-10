@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using TicketingAppBackEnd.Middlewares;
 using TicketingAppBackEnd.Models;
 using TicketingAppBackEnd.Sql;
 using TicketingAppBackEnd.Sql.Interfaces;
@@ -22,16 +23,19 @@ namespace TicketingAppBackEnd
             AppContext.SetSwitch(
                 "System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
-
             services.AddControllers();
 
             services.AddDbContext<DevContext>(x => x.UseSqlite("Data Source=database.db"));
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<IConcertRepository, ConcertRepository>();
+            services.AddGrpc(options =>
+            {
+                options.Interceptors.Add<ServerLoggerInterceptor>();
+            });
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TicektingAppBackEnd", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TicketingAppBackEnd", Version = "v1" });
             });
             services.AddGrpc();
         }
@@ -62,6 +66,7 @@ namespace TicketingAppBackEnd
 
             app.UseSwagger();
             app.UseSwaggerUI();
+
         }
     }
 }

@@ -8,6 +8,6 @@ namespace TicketingAppBackEnd.Sql.Interfaces
         public Task UpdateAsync(Concert concert);
         public Task DeleteAsync(int concertId);
         public List<Concert> GetAll();
-        public Concert GetById(int concertId);
+        public ConcertReply GetById(int concertId);
     }
 }

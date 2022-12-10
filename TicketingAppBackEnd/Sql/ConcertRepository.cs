@@ -6,7 +6,6 @@ namespace TicketingAppBackEnd.Sql
 {
     public class ConcertRepository : IConcertRepository
     {
-
         private readonly DevContext _context;
 
         public ConcertRepository(DevContext context)
@@ -22,20 +21,24 @@ namespace TicketingAppBackEnd.Sql
 
         public async Task DeleteAsync(int concertId)
         {
-            var concert = await _context.Concerts.FindAsync(concertId);
+            var concert = _context.Concerts.FirstOrDefault(c => c.Id == concertId);
             if (concert != null) _context.Concerts.Remove(concert);
             await _context.SaveChangesAsync();
         }
 
         public List<Concert> GetAll()
         {
-            var res =  _context.Concerts.ToList();
+            var res = _context.Concerts.ToList();
             return res;
         }
 
-        public Concert GetById(int concertId)
+        public ConcertReply GetById(int concertId)
         {
-            return _context.Concerts.Find(concertId);
+            var reply = new ConcertReply
+            {
+                Concert = _context.Concerts.FirstOrDefault(c => c.Id == concertId)
+            };
+            return reply;
         }
 
         public async Task UpdateAsync(Concert concert)

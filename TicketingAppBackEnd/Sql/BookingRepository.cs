@@ -26,14 +26,19 @@ namespace TicketingAppBackEnd.Sql
             await _context.SaveChangesAsync();
         }
 
+        public async Task DeleteByConcertId(int concertId)
+        {
+            var res = _context.Bookings.Where(c => c.ConcertId == concertId);
+            foreach (var booking in res)
+            {
+                _context.Bookings.Remove(booking);
+            }
+            await _context.SaveChangesAsync();
+        }
+
         public List<Booking> GetAll()
         {
             return _context.Bookings.ToList();
-        }
-
-        public Booking GetById(int bookingId)
-        {
-            return _context.Bookings.Find(bookingId);
         }
 
         public async Task UpdateAsync(Booking booking)

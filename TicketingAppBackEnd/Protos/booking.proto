@@ -23,7 +23,6 @@ message Booking {
   string Email = 4;
   string PaymentType =5;
   google.protobuf.Timestamp DateUTC = 6;
-
 }
 
 message GetAllBookingReply {

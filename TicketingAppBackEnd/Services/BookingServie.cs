@@ -3,35 +3,33 @@ using Grpc.Core;
 using TicketingAppBackEnd.Protos;
 using TicketingAppBackEnd.Sql.Interfaces;
 
-namespace TicketingAppBackEnd.Services
+namespace TicketingAppBackEnd.Services;
+
+public class BookingService : TicketingAppBackEnd.Protos.BookingService.BookingServiceBase
 {
-    public class BookingService : TicketingAppBackEnd.Protos.BookingService.BookingServiceBase
+    private readonly IBookingRepository _bookingRepository;
+
+    public BookingService(IBookingRepository bookingRepository)
     {
-        private readonly IBookingRepository _bookingRepository;
+        _bookingRepository = bookingRepository;
+    }
 
-        public BookingService(IBookingRepository bookingRepository)
+    public override async Task<CustomOperationReply> AddBooking(Booking request, ServerCallContext context)
+    {
+        request.DateUTC = Timestamp.FromDateTime(DateTime.Now.ToUniversalTime());
+        await _bookingRepository.AddAsync(request);
+
+        return new CustomOperationReply
         {
-            _bookingRepository = bookingRepository;
-        }
+            Code = 0
+        };
+    }
 
-        public override async Task<CustomOperationReply> AddBooking(Booking request, ServerCallContext context)
-        {
-
-            request.DateUTC = Timestamp.FromDateTime(DateTime.Now.ToUniversalTime());
-            await _bookingRepository.AddAsync(request);
-
-            return new CustomOperationReply
-            {
-                Code = 0
-            };
-        }
-
-        public override Task<GetAllBookingReply> GetAllBookings(Empty request, ServerCallContext context)
-        {
-            var bookings = _bookingRepository.GetAll();
-            var reply = new GetAllBookingReply();
-            reply.Booking.AddRange(bookings);
-            return Task.FromResult(reply);
-        }
+    public override Task<GetAllBookingReply> GetAllBookings(Empty request, ServerCallContext context)
+    {
+        var bookings = _bookingRepository.GetAll();
+        var reply = new GetAllBookingReply();
+        reply.Booking.AddRange(bookings);
+        return Task.FromResult(reply);
     }
 }
