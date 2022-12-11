@@ -12,7 +12,7 @@ public class ConcertService : TicketingAppBackEnd.Protos.ConcertService.ConcertS
     private readonly IConcertRepository _concertRepository;
     private readonly IBookingRepository _bookingRepository;
 
-    public ConcertService(IConcertRepository concertRepository,IBookingRepository bookingRepository)
+    public ConcertService(IConcertRepository concertRepository, IBookingRepository bookingRepository)
     {
         _concertRepository = concertRepository;
         _bookingRepository = bookingRepository;
@@ -23,13 +23,11 @@ public class ConcertService : TicketingAppBackEnd.Protos.ConcertService.ConcertS
         var validator = new ConcertValidator();
         var validation = await validator.ValidateAsync(request);
         if (!validation.IsValid)
-        {
             return new CustomOperationReply
             {
                 Code = 3,
                 Message = validation.Errors.ToString()
             };
-        }
 
         await _concertRepository.AddAsync(request);
 
@@ -42,17 +40,14 @@ public class ConcertService : TicketingAppBackEnd.Protos.ConcertService.ConcertS
 
     public async Task<CustomOperationReply> DeleteConcert(Concert request, ServerCallContext? context)
     {
-
         var validator = new ConcertValidator();
         var validation = await validator.ValidateAsync(request);
         if (!validation.IsValid)
-        {
             return new CustomOperationReply
             {
                 Code = 3,
                 Message = validation.Errors.ToString()
             };
-        }
 
         await _concertRepository.DeleteAsync(request.Id);
 
@@ -68,19 +63,17 @@ public class ConcertService : TicketingAppBackEnd.Protos.ConcertService.ConcertS
         var validator = new ConcertValidator();
         var validation = await validator.ValidateAsync(request);
         if (!validation.IsValid)
-        {
             return new CustomOperationReply
             {
                 Code = 3,
                 Message = validation.Errors.ToString()
             };
-        }
 
         await _concertRepository.UpdateAsync(request);
 
         return new CustomOperationReply
         {
-            Code = 0,
+            Code = 0
         };
     }
 
@@ -97,12 +90,10 @@ public class ConcertService : TicketingAppBackEnd.Protos.ConcertService.ConcertS
         var validator = new ConcertIdValidator();
         var validation = await validator.ValidateAsync(request);
         if (!validation.IsValid)
-        {
             return new ConcertReply
             {
                 Concert = null
             };
-        }
 
         var concert = _concertRepository.GetById(request.Id);
         return await Task.FromResult(concert);
@@ -113,13 +104,11 @@ public class ConcertService : TicketingAppBackEnd.Protos.ConcertService.ConcertS
         var validator = new ConcertIdValidator();
         var validation = await validator.ValidateAsync(request);
         if (!validation.IsValid)
-        {
             return new CustomOperationReply
             {
                 Code = 3,
                 Message = validation.Errors.ToString()
             };
-        }
 
         await _bookingRepository.DeleteByConcertId(request.Id);
         await _concertRepository.DeleteAsync(request.Id);

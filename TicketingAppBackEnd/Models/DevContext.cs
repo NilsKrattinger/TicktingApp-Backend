@@ -8,7 +8,6 @@ public class DevContext : DbContext
 {
     public DevContext(DbContextOptions options) : base(options)
     {
-
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,5 +25,4 @@ public class DevContext : DbContext
 
     public DbSet<Booking> Bookings { get; set; }
     public DbSet<Concert> Concerts { get; set; }
-
 }

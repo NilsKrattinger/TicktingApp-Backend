@@ -8,25 +8,25 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th scope="col">Artist</th>
-                <th scope="col">Mail</th>
-                <th scope="col">Price</th>
-                <th scope="col">Payment Type</th>
-                <th scope="col">Booking Date</th>
-            </tr>
+        <tr>
+            <th scope="col">Artist</th>
+            <th scope="col">Mail</th>
+            <th scope="col">Price</th>
+            <th scope="col">Payment Type</th>
+            <th scope="col">Booking Date</th>
+        </tr>
         </thead>
         <tbody>
-            @foreach (var booking in Model.Bookings)
-            {
-                <tr>
-                    <th scope="row">@Model.ConcertId[booking.Id]</th>
-                    <td>@booking.Email</td>
-                    <td>@booking.Price €</td>
-                    <td>@booking.PaymentType</td>
-                    <td>@(DateTimeOffset.FromUnixTimeSeconds(booking.DateUTC.Seconds).ToString())</td>
-                </tr>
-            }
+        @foreach (var booking in Model.Bookings)
+        {
+            <tr>
+                <th scope="row">@Model.ConcertId[booking.Id]</th>
+                <td>@booking.Email</td>
+                <td>@booking.Price €</td>
+                <td>@booking.PaymentType</td>
+                <td>@(DateTimeOffset.FromUnixTimeSeconds(booking.DateUTC.Seconds).ToString())</td>
+            </tr>
+        }
         </tbody>
     </table>
 </div>

@@ -6,5 +6,5 @@ namespace MailService.Interface;
 
 public interface IMailService
 {
-    public Task<Empty> SendMail(mail mail,ServerCallContext context);
+    public Task<Empty> SendMail(mail mail, ServerCallContext context);
 }

@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <form method="post" asp-action="Delete">
-                                        <input type="hidden" value="@concert.Id" asp-for="@Model.ConcertId.Id" />
+                                        <input type="hidden" value="@concert.Id" asp-for="@Model.ConcertId.Id"/>
                                         <input type="submit" class="btn rounded btn-danger" id="deleteBtn" value="Delete">
                                     </form>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

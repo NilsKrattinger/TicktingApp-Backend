@@ -29,12 +29,9 @@ public class BookingsController : Controller
             Id = concertId
         };
         var concert = _concertServiceClient.GetById(request);
-        if (concert.Concert == null)
-        {
-            return await Task.FromResult<IActionResult>(RedirectToAction(nameof(Error)));
-        }
+        if (concert.Concert == null) return await Task.FromResult<IActionResult>(RedirectToAction(nameof(Error)));
 
-        var dataBag = new BookViewData(new Booking(),concert.Concert);
+        var dataBag = new BookViewData(new Booking(), concert.Concert);
         return View(dataBag);
     }
 
@@ -43,26 +40,21 @@ public class BookingsController : Controller
     {
         var res = _bookingServiceClient.AddBooking(booking);
         if (res.Code == 0)
-        {
             return Task.FromResult<IActionResult>(Redirect("/"));
-        }
         else
-        {
             return Task.FromResult<IActionResult>(RedirectToAction(nameof(Error)));
-        }
-
     }
 
     [HttpGet]
     public IActionResult Bookings()
     {
         var bookings = _bookingServiceClient.GetAllBookings(new Empty()).Booking.ToList();
-        var concertId = new Dictionary<int,string>();
+        var concertId = new Dictionary<int, string>();
         foreach (var booking in bookings)
         {
             if (concertId.ContainsKey(booking.ConcertId)) continue;
             var concert = _concertServiceClient.GetById(new ConcertId { Id = booking.ConcertId });
-            concertId.Add(booking.Id,concert.Concert.Artist);
+            concertId.Add(booking.Id, concert.Concert.Artist);
         }
 
         var dataBag = new BookingsViewData(concertId, bookings);

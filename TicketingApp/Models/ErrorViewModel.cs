@@ -1,9 +1,8 @@
-namespace TicketingApp.Models
-{
-    public class ErrorViewModel
-    {
-        public string? RequestId { get; init; }
+namespace TicketingApp.Models;
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-    }
+public class ErrorViewModel
+{
+    public string? RequestId { get; init; }
+
+    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 }

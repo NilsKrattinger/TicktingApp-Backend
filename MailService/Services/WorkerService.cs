@@ -11,7 +11,7 @@ public class WorkerService : IWorkerService
     private readonly ILogger<WorkerService> _logger;
 
 
-    public WorkerService(  ILogger<WorkerService> logger,
+    public WorkerService(ILogger<WorkerService> logger,
         IHostApplicationLifetime applicationLifetime, IShareBlockingCollection mailsQueue)
     {
         _logger = logger;
@@ -66,13 +66,11 @@ public class WorkerService : IWorkerService
                     //Simulate some errors
                     var rand = new Random();
                     var number = rand.Next(0, 100);
-                    if (number < 60)
-                    {
-                        throw new SmtpException(SmtpStatusCode.GeneralFailure,"Simulating some troubles");
-                    }
+                    if (number < 60) throw new SmtpException(SmtpStatusCode.GeneralFailure, "Simulating some troubles");
                     await Task.Delay(1000, _cancellationToken);
                 }
-                _logger.LogInformation("Mail sent to : {dest}",mailObj.Target);
+
+                _logger.LogInformation("Mail sent to : {dest}", mailObj.Target);
                 nbErrors = 0;
             }
             catch (OperationCanceledException ex)
@@ -88,7 +86,6 @@ public class WorkerService : IWorkerService
             {
                 _logger.LogError("Mail Not sent, cause : " + ex?.Message + " -> Aborting");
             }
-
         }
         // ReSharper disable once FunctionNeverReturns
     }

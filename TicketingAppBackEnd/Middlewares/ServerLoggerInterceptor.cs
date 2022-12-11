@@ -47,7 +47,6 @@ public class ServerLoggerInterceptor : Interceptor
         ServerCallContext context,
         ServerStreamingServerMethod<TRequest, TResponse> continuation)
     {
-
         LogCall<TRequest, TResponse>(MethodType.ServerStreaming, context);
         return base.ServerStreamingServerHandler(request, responseStream, context, continuation);
     }
@@ -66,7 +65,7 @@ public class ServerLoggerInterceptor : Interceptor
         where TRequest : class
         where TResponse : class
     {
-        _logger.LogWarning("Starting call. Type: {MethodType}. Methode: {Method}. User-agent: {User-agent}", methodType, context.Method, context.RequestHeaders.GetValue("user-agent"));
-
+        _logger.LogWarning("Starting call. Type: {MethodType}. Methode: {Method}. User-agent: {User-agent}", methodType,
+            context.Method, context.RequestHeaders.GetValue("user-agent"));
     }
 }

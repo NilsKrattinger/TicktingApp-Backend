@@ -8,29 +8,29 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
+        <PackageReference Include="Grpc.AspNetCore" Version="2.49.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Remove="TicketingLib\**" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <EmbeddedResource Remove="TicketingLib\**" />
+        <Compile Remove="TicketingLib\**"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="TicketingLib\**" />
+        <EmbeddedResource Remove="TicketingLib\**"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Content Remove="TicketingLib\**" />
+        <None Remove="TicketingLib\**"/>
     </ItemGroup>
 
     <ItemGroup>
-      <_ContentIncludedByDefault Remove="TicketingLib\obj\project.assets.json" />
-      <_ContentIncludedByDefault Remove="TicketingLib\obj\project.packagespec.json" />
-      <_ContentIncludedByDefault Remove="TicketingLib\obj\TicketingLib.csproj.nuget.dgspec.json" />
+        <Content Remove="TicketingLib\**"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <_ContentIncludedByDefault Remove="TicketingLib\obj\project.assets.json"/>
+        <_ContentIncludedByDefault Remove="TicketingLib\obj\project.packagespec.json"/>
+        <_ContentIncludedByDefault Remove="TicketingLib\obj\TicketingLib.csproj.nuget.dgspec.json"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -45,6 +45,6 @@
         </Protobuf>
 
     </ItemGroup>
-    
+
 
 </Project>

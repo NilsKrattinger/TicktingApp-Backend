@@ -14,7 +14,8 @@ public class BookingService : TicketingAppBackEnd.Protos.BookingService.BookingS
     private readonly MailService.MailServiceClient _mailServiceClient;
 
 
-    public BookingService(IBookingRepository bookingRepository, IConcertRepository concertRepository, MailService.MailServiceClient mailService)
+    public BookingService(IBookingRepository bookingRepository, IConcertRepository concertRepository,
+        MailService.MailServiceClient mailService)
     {
         _bookingRepository = bookingRepository;
         _concertRepository = concertRepository;
@@ -34,13 +35,11 @@ public class BookingService : TicketingAppBackEnd.Protos.BookingService.BookingS
         var validator = new BookingValidator();
         var validation = await validator.ValidateAsync(request);
         if (!validation.IsValid)
-        {
             return new CustomOperationReply
             {
                 Code = 3,
                 Message = validation.Errors.ToString()
             };
-        }
 
         var concert = _concertRepository.GetById(request.ConcertId).Concert;
         if (concert == null)
@@ -50,7 +49,7 @@ public class BookingService : TicketingAppBackEnd.Protos.BookingService.BookingS
                 Message = "Concert do not seem to exist"
             };
 
-        
+
         var nbBookings = _bookingRepository.NbBookingsByConcertID(request.ConcertId);
         if (concert.Place - nbBookings <= 0)
             return new CustomOperationReply
@@ -65,7 +64,7 @@ public class BookingService : TicketingAppBackEnd.Protos.BookingService.BookingS
             Target = request.Email,
             Sender = "mail@Ticekting.com",
             Subject = "Booking for " + concert.Artist,
-            Body = "Place successfully Booked",
+            Body = "Place successfully Booked"
         });
         return new CustomOperationReply
         {

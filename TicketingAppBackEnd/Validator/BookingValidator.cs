@@ -3,7 +3,7 @@ using TicketingAppBackEnd.Protos;
 
 namespace TicketingAppBackEnd.Validator;
 
-public class BookingValidator:AbstractValidator<Booking>
+public class BookingValidator : AbstractValidator<Booking>
 {
     public BookingValidator()
     {

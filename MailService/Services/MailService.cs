@@ -8,7 +8,7 @@ using MailService.Protos;
 
 namespace MailService.Services;
 
-public class MailService : Protos.MailService.MailServiceBase ,IMailService
+public class MailService : Protos.MailService.MailServiceBase, IMailService
 {
     private readonly ILogger<MailService> _logger;
     private readonly CancellationToken _cancellationToken;
@@ -24,11 +24,9 @@ public class MailService : Protos.MailService.MailServiceBase ,IMailService
     }
 
 
-    public override Task<Empty> SendMail(mail mail,ServerCallContext context)
+    public override Task<Empty> SendMail(mail mail, ServerCallContext context)
     {
         _mailsQueue.Add(mail);
         return Task.FromResult(new Empty());
     }
-
-
 }

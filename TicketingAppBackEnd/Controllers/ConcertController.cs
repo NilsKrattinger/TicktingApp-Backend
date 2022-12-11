@@ -29,7 +29,7 @@ public class ConcertController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ConcertReply> Get(int id)
     {
-        return await _concertServices.GetById(new ConcertId{Id = id});
+        return await _concertServices.GetById(new ConcertId { Id = id });
     }
 
     // POST api/<ConcertController>
@@ -50,6 +50,6 @@ public class ConcertController : ControllerBase
     [HttpDelete("{id}")]
     public async Task DeleteAsync(int id)
     {
-        await _concertServices.DeleteConcert(new ConcertId{Id = id});
+        await _concertServices.DeleteConcert(new ConcertId { Id = id });
     }
 }

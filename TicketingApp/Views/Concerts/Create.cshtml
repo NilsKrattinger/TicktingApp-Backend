@@ -5,7 +5,7 @@
 
 <h1>Add Concert</h1>
 <form method="post" asp-action="Create">
-    <input type="hidden" value="" asp-for="Id" />
+    <input type="hidden" value="" asp-for="Id"/>
     <div class="form-group">
         <label for="artistInput">Artist</label>
         <input asp-for="Artist" type="text" class="form-control" id="artistInput" placeholder="Enter the artist name">
@@ -15,8 +15,8 @@
         <input asp-for="Price" type="number" class="form-control" id="priceInput" placeholder="Enter the concert price">
     </div>
     <div class="form-group">
-            <label for="placesInput">Places</label>
-            <input asp-for="Place" type="number" class="form-control" id="placesInput" placeholder="Enter the number of places">
-        </div>
+        <label for="placesInput">Places</label>
+        <input asp-for="Place" type="number" class="form-control" id="placesInput" placeholder="Enter the number of places">
+    </div>
     <button type="submit" class="btn rounded btn-primary">Add</button>
 </form>

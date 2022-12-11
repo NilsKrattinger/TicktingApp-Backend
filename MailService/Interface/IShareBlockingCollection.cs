@@ -8,5 +8,4 @@ public interface IShareBlockingCollection
     public BlockingCollection<mail> GetCollection();
     public void Add(mail mail);
     public mail Take();
-
 }
