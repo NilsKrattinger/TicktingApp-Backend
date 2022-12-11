@@ -34,15 +34,23 @@ public class BookingsController : Controller
             return await Task.FromResult<IActionResult>(RedirectToAction(nameof(Error)));
         }
 
-        var dataBag = new BookViewData(new Booking(), concert.Concert);
+        var dataBag = new BookViewData(new Booking(),concert.Concert);
         return View(dataBag);
     }
 
     [HttpPost]
     public Task<IActionResult> Booking(Booking booking)
     {
-        _bookingServiceClient.AddBooking(booking);
-        return Task.FromResult<IActionResult>(Redirect("/"));
+        var res = _bookingServiceClient.AddBooking(booking);
+        if (res.Code == 0)
+        {
+            return Task.FromResult<IActionResult>(Redirect("/"));
+        }
+        else
+        {
+            return Task.FromResult<IActionResult>(RedirectToAction(nameof(Error)));
+        }
+
     }
 
     [HttpGet]

@@ -3,6 +3,7 @@ using Grpc.Core;
 using TicketingAppBackEnd.Interfaces;
 using TicketingAppBackEnd.Protos;
 using TicketingAppBackEnd.Sql.Interfaces;
+using TicketingAppBackEnd.Validator;
 
 namespace TicketingAppBackEnd.Services;
 
@@ -10,7 +11,7 @@ public class BookingService : TicketingAppBackEnd.Protos.BookingService.BookingS
 {
     private readonly IBookingRepository _bookingRepository;
     private readonly IConcertRepository _concertRepository;
-    private MailService.MailServiceClient _mailServiceClient;
+    private readonly MailService.MailServiceClient _mailServiceClient;
 
 
     public BookingService(IBookingRepository bookingRepository, IConcertRepository concertRepository, MailService.MailServiceClient mailService)
@@ -28,7 +29,19 @@ public class BookingService : TicketingAppBackEnd.Protos.BookingService.BookingS
 
     public override async Task<CustomOperationReply> AddBooking(Booking request, ServerCallContext? context)
     {
-        
+        request.DateUTC = Timestamp.FromDateTime(DateTime.Now.ToUniversalTime());
+
+        var validator = new BookingValidator();
+        var validation = await validator.ValidateAsync(request);
+        if (!validation.IsValid)
+        {
+            return new CustomOperationReply
+            {
+                Code = 3,
+                Message = validation.Errors.ToString()
+            };
+        }
+
         var concert = _concertRepository.GetById(request.ConcertId).Concert;
         if (concert == null)
             return new CustomOperationReply
@@ -46,7 +59,6 @@ public class BookingService : TicketingAppBackEnd.Protos.BookingService.BookingS
                 Message = "Missing places"
             };
 
-        request.DateUTC = Timestamp.FromDateTime(DateTime.Now.ToUniversalTime());
         await _bookingRepository.AddAsync(request);
         _mailServiceClient.SendMail(new mail
         {
