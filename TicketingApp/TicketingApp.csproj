@@ -34,12 +34,17 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Protobuf Include=".\Protos\concert.proto" GrpcServices="Client">
+        <Protobuf Include=".\Protos\concert.proto" GrpcServices="Client" ProtoRoot="./Protos\">
             <Link>Protos\concert.proto</Link>
         </Protobuf>
-        <Protobuf Include=".\Protos\booking.proto" GrpcServices="Client">
+        <Protobuf Include=".\Protos\booking.proto" GrpcServices="Client" ProtoRoot="./Protos\">
             <Link>Protos\booking.proto</Link>
         </Protobuf>
+        <Protobuf Include=".\Protos\common.proto" GrpcServices="Client" ProtoRoot="./Protos\">
+            <Link>Protos\common.proto</Link>
+        </Protobuf>
+
     </ItemGroup>
+    
 
 </Project>

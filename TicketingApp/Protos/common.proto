@@ -1,0 +1,9 @@
+syntax = "proto3";
+option csharp_namespace = "TicketingApp.Protos";
+
+
+message CustomOperationReply{
+  int32 code = 1;
+  string message = 2;
+}
+

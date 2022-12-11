@@ -1,12 +1,14 @@
 syntax = "proto3";
 import "google/protobuf/empty.proto";
+import "common.proto";
 
 option csharp_namespace = "TicketingApp.Protos";
 
 service ConcertService {
-  rpc AddConcert(ConcertRequest) returns (ConcertReply);
-  rpc DeleteConcert(DeleteConcertRequest) returns (ConcertReply);
-  rpc UpdateConcert(ConcertRequest) returns (ConcertReply);
+  rpc AddConcert(Concert) returns (CustomOperationReply);
+  rpc DeleteConcert(ConcertId) returns (CustomOperationReply);
+  rpc UpdateConcert(Concert) returns (CustomOperationReply);
+  rpc GetById(ConcertId) returns (ConcertReply);
   rpc GetAllConcerts(google.protobuf.Empty) returns (GetAllConcertsReply);
 }
 
@@ -14,25 +16,18 @@ message Concert {
   int32 Id = 1;
   string Artist = 2;
   int32 Price = 3;
-  string Place =4;
+  int32 Place =4;
 }
 
-message ConcertRequest {
-  int32 Id = 1;
-  string Artist = 2;
-  int32 Price = 3;
-  string Place =4;
-}
-
-message DeleteConcertRequest {
+message ConcertId {
   int32 id =1;
 }
 
-message ConcertReply {
-  int32 id = 1;
+message ConcertReply{
+  optional Concert concert = 1;
 }
+
 
 message GetAllConcertsReply {
   repeated Concert concerts = 1;
 }
-

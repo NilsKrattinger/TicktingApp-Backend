@@ -1,10 +1,11 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
+using TicketingAppBackEnd.Interfaces;
 using TicketingAppBackEnd.Sql.Interfaces;
 using TicketingAppBackEnd.Protos;
 namespace TicketingAppBackEnd.Services;
 
-public class ConcertService : TicketingAppBackEnd.Protos.ConcertService.ConcertServiceBase
+public class ConcertService : TicketingAppBackEnd.Protos.ConcertService.ConcertServiceBase, IConcertServices
 {
     private readonly IConcertRepository _concertRepository;
     private readonly IBookingRepository _bookingRepository;
@@ -15,7 +16,7 @@ public class ConcertService : TicketingAppBackEnd.Protos.ConcertService.ConcertS
         _bookingRepository = bookingRepository;
     }
 
-    public override async Task<CustomOperationReply> AddConcert(Concert request, ServerCallContext context)
+    public override async Task<CustomOperationReply> AddConcert(Concert request, ServerCallContext? context)
     {
         await _concertRepository.AddAsync(request);
 
@@ -26,7 +27,7 @@ public class ConcertService : TicketingAppBackEnd.Protos.ConcertService.ConcertS
         };
     }
 
-    public async Task<CustomOperationReply> DeleteConcert(Concert request, ServerCallContext context)
+    public async Task<CustomOperationReply> DeleteConcert(Concert request, ServerCallContext? context)
     {
         await _concertRepository.DeleteAsync(request.Id);
 
@@ -37,7 +38,7 @@ public class ConcertService : TicketingAppBackEnd.Protos.ConcertService.ConcertS
         };
     }
 
-    public override async Task<CustomOperationReply> UpdateConcert(Concert request, ServerCallContext context)
+    public override async Task<CustomOperationReply> UpdateConcert(Concert request, ServerCallContext? context)
     {
         await _concertRepository.UpdateAsync(request);
 
@@ -47,7 +48,7 @@ public class ConcertService : TicketingAppBackEnd.Protos.ConcertService.ConcertS
         };
     }
 
-    public override Task<GetAllConcertsReply> GetAllConcerts(Empty request, ServerCallContext context)
+    public override Task<GetAllConcertsReply> GetAllConcerts(Empty request, ServerCallContext? context)
     {
         var concerts = _concertRepository.GetAll();
         var result = new GetAllConcertsReply();
@@ -55,13 +56,13 @@ public class ConcertService : TicketingAppBackEnd.Protos.ConcertService.ConcertS
         return Task.FromResult(result);
     }
 
-    public override Task<ConcertReply> GetById(ConcertId request, ServerCallContext context)
+    public override Task<ConcertReply> GetById(ConcertId request, ServerCallContext? context)
     {
         var concert = _concertRepository.GetById(request.Id);
         return Task.FromResult(concert);
     }
 
-    public override async Task<CustomOperationReply> DeleteConcert(ConcertId request, ServerCallContext context)
+    public override async Task<CustomOperationReply> DeleteConcert(ConcertId request, ServerCallContext? context)
     {
         await _bookingRepository.DeleteByConcertId(request.Id);
         await _concertRepository.DeleteAsync(request.Id);

@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model TicketingApp.Models.Views.ConcertViewData
+
+<div class="text-center">
+    <h1 class="display-4">Concerts</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Artiste</th>
+            <th scope="col">Price</th>
+            <th scope="col">Place</th>
+            <th scope="colgroup"></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var concert in Model.Concerts)
+        {
+            var tm = "#myModal" + concert.Id;
+            var mid = "myModal" + concert.Id;
+            <tr>
+                <th scope="row">@concert.Id</th>
+                <td>@concert.Artist</td>
+                <td>@concert.Price €</td>
+                <td>@concert.Place</td>
+                <td>
+                    <span class="btn rounded btn-info">
+                        <a class="text-white" asp-area="" asp-controller="Bookings" asp-action="Book" asp-route-concertId="@concert.Id">Réserver une place</a>
+                    </span>
+
+                    <span class="btn rounded btn-dark ">
+                        <a class="text-white" asp-area="" asp-controller="Concerts" asp-action="Update" asp-route-concertId="@concert.Id">Modifier</a>
+                    </span>
+                    <button type="button" class="btn rounded btn-danger" data-toggle="modal" data-target="@tm">
+                        Delete
+                    </button>
+
+                    <div class="modal fade" id="@mid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Delete Confirmation</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure want to delete this item?
+                                </div>
+                                <div class="modal-footer">
+                                    <form method="post" asp-action="Delete">
+                                        <input type="hidden" value="@concert.Id" asp-for="@Model.ConcertId.Id" />
+                                        <input type="submit" class="btn rounded btn-danger" id="deleteBtn" value="Delete">
+                                    </form>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <span class="btn rounded btn-info m-3">
+        <a class="text-white" asp-area="" asp-controller="Concerts" asp-action="Create">Add a concert</a>
+    </span>
+
+</div>

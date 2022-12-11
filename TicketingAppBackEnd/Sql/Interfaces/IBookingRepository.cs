@@ -10,4 +10,5 @@ public interface IBookingRepository
     public Task DeleteAsync(int bookingId);
     public List<Booking> GetAll();
     public Task DeleteByConcertId(int concertId);
+    public int NbBookingsByConcertID(int concertId);
 }

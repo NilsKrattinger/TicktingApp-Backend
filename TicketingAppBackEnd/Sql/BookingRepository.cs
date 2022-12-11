@@ -46,5 +46,12 @@ namespace TicketingAppBackEnd.Sql
             _context.Bookings.Update(booking);
             await _context.SaveChangesAsync();
         }
+
+        public int NbBookingsByConcertID(int concertId)
+        {
+            var nbBookingsByConcertId = _context.Bookings
+                .Count(booking => booking.ConcertId == concertId);
+            return nbBookingsByConcertId;
+        }
     }
 }

@@ -1,0 +1,22 @@
+@{
+    ViewData["Title"] = "Create Concert";
+}
+@model TicketingApp.Protos.Concert
+
+<h1>Edit Concert</h1>
+<form method="post" asp-action="Update">
+    <input type="hidden" value="@Model.Id" asp-for="Id" />
+    <div class="form-group">
+        <label for="artistInput">Artist</label>
+        <input asp-for="Artist" type="text" class="form-control" id="artistInput" value="@Model.Artist" placeholder="@Model.Artist">
+    </div>
+    <div class="form-group">
+        <label for="priceInput">Price</label>
+        <input asp-for="Price" type="text" class="form-control" id="priceInput" value="@Model.Price" placeholder="@Model.Price">
+    </div>
+    <div class="form-group">
+            <label for="placesInput">Places</label>
+            <input asp-for="Place" type="text" class="form-control" id="placesInput" value="@Model.Place" placeholder="@Model.Place">
+        </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

@@ -32,6 +32,9 @@
         <Protobuf Include=".\Protos\common.proto" GrpcServices="Server" ProtoRoot="./Protos\">
             <Link>Protos\common.proto</Link>
         </Protobuf>
+        <Protobuf Include=".\Protos\mail.proto" GrpcServices="Client" ProtoRoot="./Protos\">
+            <Link>Protos\mail.proto</Link>
+        </Protobuf>
     </ItemGroup>
 
 </Project>

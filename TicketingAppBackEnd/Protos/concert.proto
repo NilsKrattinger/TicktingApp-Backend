@@ -16,7 +16,7 @@ message Concert {
   int32 Id = 1;
   string Artist = 2;
   int32 Price = 3;
-  string Place =4;
+  int32 Place =4;
 }
 
 message ConcertId {

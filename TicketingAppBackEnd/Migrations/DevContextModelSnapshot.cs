@@ -53,8 +53,8 @@ namespace TicketingAppBackEnd.Migrations
                     b.Property<string>("Artist")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Place")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Place")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Price")
                         .HasColumnType("INTEGER");

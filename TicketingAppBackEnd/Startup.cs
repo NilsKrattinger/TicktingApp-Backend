@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using TicketingAppBackEnd.Interfaces;
 using TicketingAppBackEnd.Middlewares;
 using TicketingAppBackEnd.Models;
+using TicketingAppBackEnd.Services;
 using TicketingAppBackEnd.Sql;
 using TicketingAppBackEnd.Sql.Interfaces;
-using TicketingAppBackEnd.Services;
 
 namespace TicketingAppBackEnd
 {
@@ -28,9 +29,21 @@ namespace TicketingAppBackEnd
             services.AddDbContext<DevContext>(x => x.UseSqlite("Data Source=database.db"));
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<IConcertRepository, ConcertRepository>();
+            services.AddScoped<IBookService, BookingService>();
+            services.AddScoped<IConcertServices, ConcertService>();
             services.AddGrpc(options =>
             {
                 options.Interceptors.Add<ServerLoggerInterceptor>();
+            });
+            services.AddGrpcClient<Protos.MailService.MailServiceClient>(x =>
+            {
+                x.Address = new Uri("https://localhost:5000");
+            }).ConfigurePrimaryHttpMessageHandler(() =>
+            {
+                var httpHandler = new HttpClientHandler();
+                httpHandler.ServerCertificateCustomValidationCallback =
+                    HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                return httpHandler;
             });
 
             services.AddSwaggerGen(c =>
@@ -63,10 +76,6 @@ namespace TicketingAppBackEnd
 
                 endpoints.MapControllers();
             });
-
-            app.UseSwagger();
-            app.UseSwaggerUI();
-
         }
     }
 }
